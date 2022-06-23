@@ -32,4 +32,4 @@ Route.post('/user/profile', 'UsersController.updateProfile')
 
 Route.post('/user/login', 'UsersController.login')
 
-Route.post('/user/logout', 'UsersController.logout')
+Route.post('/user/logout', 'UsersController.logout').middleware('auth')
