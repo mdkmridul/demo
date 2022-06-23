@@ -10,8 +10,8 @@ export default class UsersController {
     return await userService.signup(request, auth)
   }
 
-  public async updateProfile({ request }: HttpContextContract) {
-    return await userService.updateProfile(request)
+  public async updateProfile({ auth, request }: HttpContextContract) {
+    return await userService.updateProfile(request, auth)
   }
                                                           
   public async login({ auth, request, response }: HttpContextContract) {

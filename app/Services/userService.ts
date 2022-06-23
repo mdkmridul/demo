@@ -19,10 +19,9 @@ export default class UserService {
     }
   }
 
-  public async updateProfile(request) {
+  public async updateProfile(request, auth) {
     const payload = await request.validate(UpdateProfileValidator);
-    await User.findByOrFail('email', payload.email);
-    let profile = await Profile.updateOrCreate({email: payload.email}, payload);
+    let profile = await Profile.updateOrCreate({email: auth.user.email}, payload);
     return {
       data: {profile},
       message: 'Profile updated successfully.',

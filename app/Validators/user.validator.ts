@@ -19,7 +19,6 @@ export class UpdateProfileValidator {
 
   public schema = schema.create({
     name: schema.string.optional(),
-    email: schema.string.optional([rules.email()]),
   })
 
   public messages: CustomMessages = {}
