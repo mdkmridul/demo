@@ -1,55 +1,27 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import User from 'App/Models/User'
-import Profile from 'App/Models/Profile'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
+import UserService from 'App/Services/userService'
+
+
+let userService = new UserService()
 export default class UsersController {
-  public async signup({ auth, request, response }: HttpContextContract) {
-    let user = new User()
-    let profile = new Profile()
-
-    user = await user.fill({
-      email: request.input('email'),
-      password: request.input('password'),
-    })
-
-    user = await user.save()
-
-    profile = await profile.fill({
-      user_id: user.id,
-      name: request.input('name'),
-    })
-
-    profile = await profile.save()
-
-    const token = await auth.use('api').generate(user, {
-      expiresIn: '7days',
-    })
-
-    return {
-      data: { user: profile, accessToken: token },
-      message: 'User created successfully.',
-      success: true,
-    }
+  public async signup({ auth, request }: HttpContextContract) {
+    return await userService.signup(request, auth)
   }
 
+  public async updateProfile({ request }: HttpContextContract) {
+    return await userService.updateProfile(request)
+  }
+                                                          
   public async login({ auth, request, response }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
-
-    try {
-      const token = await auth.use('api').attempt(email, password, {
-        expiresIn: '7days',
-      })
-      return { data: token, success: true, message: 'You have successfully logged in.' }
-    } catch {
-      return response.badRequest('Invalid credentials')
-    }
+    // return await userService.login(auth, email, password, response)
+    return await userService.login(auth, email, password, response)
   }
 
   public async logout({ auth, response }) {
-    await auth.use('api').revoke()
-    return {
-      revoked: true,
-    }
+    return await userService.logout(auth)
   }
 }

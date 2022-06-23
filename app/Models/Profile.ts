@@ -14,7 +14,7 @@ export default class Profile extends BaseModel {
   public name: string
 
   @column()
-  public user_id: number
+  public email: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
