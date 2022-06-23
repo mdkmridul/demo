@@ -24,3 +24,15 @@ export class UpdateProfileValidator {
   public messages: CustomMessages = {}
 }
 
+export class ChangePasswordValidator {
+  constructor (protected ctx: HttpContextContract) {
+  }
+
+  public schema = schema.create({
+    currentPassword: schema.string(),
+    password : schema.string([rules.confirmed(), rules.minLength(8)])
+  })
+
+  public messages: CustomMessages = {}
+}
+

@@ -33,3 +33,5 @@ Route.post('/user/profile', 'UsersController.updateProfile').middleware('auth')
 Route.post('/user/login', 'UsersController.login')
 
 Route.post('/user/logout', 'UsersController.logout').middleware('auth')
+
+Route.patch('/user/changePassword', 'UsersController.changePassword').middleware('auth')
