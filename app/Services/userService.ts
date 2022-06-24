@@ -3,12 +3,15 @@ import Hash from '@ioc:Adonis/Core/Hash';
 import User from 'App/Models/User';
 import Profile from 'App/Models/Profile';
 import Api_token from 'App/Models/ApiToken';
+import Role from 'App/Models/Role';
 
 export default class UserService {
   public async signup(request, auth) {
 
     const payload = await request.validate(CreateUserValidator);
     let user = await User.create(payload);
+    const role = await Role.find(1)
+    await user.related('roles').attach([role.id])
 
     const token = await auth.use('api').generate(user, {
       expiresIn: '7days',
@@ -23,7 +26,7 @@ export default class UserService {
 
   public async updateProfile(request, auth) {
     const payload = await request.validate(UpdateProfileValidator);
-    let profile = await Profile.updateOrCreate({email: auth.user.email}, payload);
+    let profile = await Profile.updateOrCreate({email: auth.user.email}, {...payload, user_id: auth.user.id});
 
     return {
       data: {profile},
@@ -53,7 +56,6 @@ export default class UserService {
   public async changePassword(request, auth, response) {
     const payload = await request.validate(ChangePasswordValidator);
     let user = auth.user;
-    console.log(user.password, payload.currentPassword, "___________________________")
     if(!(await Hash.verify(user.password, payload.currentPassword))) {
       return response.badRequest("Passwords doen't match!")
     }

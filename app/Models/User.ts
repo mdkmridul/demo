@@ -10,14 +10,17 @@ import {
   manyToMany,
 } from '@ioc:Adonis/Lucid/Orm'
 import Profile from './Profile'
-// import Role from './Role'
+import Role from './Role'
 
 export default class User extends BaseModel {
-  // @manyToMany(() => Role, {
-  //   pivotTable: 'role_user',
-  // })
-  // public roles: ManyToMany<typeof Role>
-  @hasOne(() => Profile)
+  @manyToMany(() => Role, {
+    pivotTable: 'user_role'
+  })
+  public roles: ManyToMany<typeof Role>
+
+  @hasOne(() => Profile, {
+    foreignKey: 'user_id'
+  })
   public profile: HasOne<typeof Profile>
 
   @column({ isPrimary: true })

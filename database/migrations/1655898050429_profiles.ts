@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('name').notNullable()
       table.string('email').unsigned().references('users.email').onDelete('CASCADE') // delete profile when user is deleted
+      table.string('user_id').unique()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

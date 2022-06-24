@@ -1,7 +1,7 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'role_user'
+  protected tableName = 'user_role'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
@@ -12,8 +12,11 @@ export default class extends BaseSchema {
       // table.foreign('role_id').references('roles.id').onDelete('cascade')
 
       /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
+     * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
+     */
+      table.integer('user_id').unsigned().references('users.id')
+      table.integer('role_id').unsigned().references('roles.id')
+      table.unique(['user_id', 'role_id'])
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
