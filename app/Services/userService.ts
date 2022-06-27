@@ -4,6 +4,7 @@ import User from 'App/Models/User';
 import Profile from 'App/Models/Profile';
 import Api_token from 'App/Models/ApiToken';
 import Role from 'App/Models/Role';
+import Event from '@ioc:Adonis/Core/Event';
 
 export default class UserService {
   public async signup(request, auth) {
@@ -40,6 +41,7 @@ export default class UserService {
       const token = await auth.use('api').attempt(email, password, {
         expiresIn: '7days',
       })
+      Event.emit('login:user', {id: auth.user.id, email: auth.user.email})
       return { data: token, success: true, message: 'You have successfully logged in.' }
     } catch {
       return response.badRequest('Invalid credentials')

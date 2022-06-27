@@ -8,6 +8,9 @@ export default class Profile extends BaseModel {
   // })
   // public user_id: HasOne<typeof User>
 
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>;
+
   @column({ isPrimary: true })
   public id: number
 
