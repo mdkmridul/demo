@@ -18,7 +18,6 @@
 |
 */
 
-import { Router } from '@adonisjs/core/build/standalone'
 import Route from '@ioc:Adonis/Core/Route'
 // import UsersController from 'App/Controllers/Http/UsersController'
 
@@ -28,6 +27,12 @@ Route.get('/', async () => {
 
 Route.post('/user/register', 'UsersController.signup')
 
+Route.post('/user/profile', 'UsersController.updateProfile').middleware('auth')
+
 Route.post('/user/login', 'UsersController.login')
 
-Route.post('/user/logout', 'UsersController.logout')
+Route.post('/user/logout', 'UsersController.logout').middleware('auth')
+
+Route.patch('/user/changePassword', 'UsersController.changePassword').middleware('auth')
+
+Route.get('/admin/users', 'AdminController.getUsers').middleware('auth').middleware('access')

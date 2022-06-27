@@ -1,14 +1,16 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
-import User from './User'
 
-export default class Role extends BaseModel {
+export default class User_Role extends BaseModel {
 
-  @column({ isPrimary: true, serializeAs: null })
+  @column({ isPrimary: true })
   public id: number
 
   @column()
-  public title: string
+  public user_id: number
+
+  @column()
+  public roleId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

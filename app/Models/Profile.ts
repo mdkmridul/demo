@@ -1,17 +1,20 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 import User from 'App/Models/User'
 
 export default class Profile extends BaseModel {
-  // @hasOne(() => User, {
-  //   foreignKey: 'user_id',
-  // })
-  // public user_id: HasOne<typeof User>
+
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>;
+
   @column({ isPrimary: true })
   public id: number
 
   @column()
   public name: string
+
+  @column()
+  public email: string
 
   @column()
   public user_id: number

@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "plugin:adonis/typescriptApp",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@delagen/deprecation", "import"],
+  "rules": {
+    "curly": ["error", "all"],
+    "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/lines-between-class-members": ["error", "always"],
+    "@typescript-eslint/explicit-function-return-type": ["error"],
+    "@delagen/deprecation/deprecation": "warn",
+    "import/newline-after-import": "error"
+  }
+}
