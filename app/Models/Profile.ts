@@ -3,10 +3,6 @@ import { BaseModel, BelongsTo, belongsTo, column, hasOne, HasOne } from '@ioc:Ad
 import User from 'App/Models/User'
 
 export default class Profile extends BaseModel {
-  // @hasOne(() => User, {
-  //   foreignKey: 'user_id',
-  // })
-  // public user_id: HasOne<typeof User>
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>;

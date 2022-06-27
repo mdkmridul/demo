@@ -11,10 +11,7 @@ export default class AdminService {
     else{
       users =  await User.query().preload('roles')
     }
-    // const Roles = []
-    // users.forEach(ele => {
-    //   Roles.push(roles)
-    // })
+
     return users;
 
   }

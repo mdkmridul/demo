@@ -1,9 +1,11 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import AdminService from 'App/Services/adminService'
 
-const adminService = new AdminService()
 export default class AdminController {
+  constructor(
+    private adminService = new AdminService
+  ) {}
   public async getUsers({request} : HttpContextContract) {
-    return adminService.getUsers(request)
+    return this.adminService.getUsers(request)
   }
 }

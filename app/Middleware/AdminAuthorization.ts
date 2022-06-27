@@ -1,8 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Role from 'App/Models/Role';
-import User from 'App/Models/User'
 
-export default class Access {
+export default class AdminAuthorization {
   public async handle(
     { auth, response }: HttpContextContract,
     next: () => Promise<void>

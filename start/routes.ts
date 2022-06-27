@@ -35,6 +35,4 @@ Route.post('/user/logout', 'UsersController.logout').middleware('auth')
 
 Route.patch('/user/changePassword', 'UsersController.changePassword').middleware('auth')
 
-// Route.post('/role', 'RolesController.createRole')
-
 Route.get('/admin/users', 'AdminController.getUsers').middleware('auth').middleware('access')

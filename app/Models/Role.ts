@@ -3,8 +3,6 @@ import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm
 import User from './User'
 
 export default class Role extends BaseModel {
-  // @manyToMany(() => User)
-  // public users: ManyToMany<typeof User>
 
   @column({ isPrimary: true, serializeAs: null })
   public id: number
